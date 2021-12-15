@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace lw1
+﻿namespace lw1
 {
     public static class ObjectExtensions
     {
@@ -16,11 +10,6 @@ namespace lw1
             }
 
             Type type = obj.GetType();
-
-            if ( !type.IsEnum )
-            {
-                throw new ArgumentException( $"Argument is not an instance of {typeof( T )}" );
-            }
 
             if ( Enum.IsDefined( type, obj ) )
             {

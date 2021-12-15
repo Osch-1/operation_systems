@@ -4,29 +4,15 @@ using lw1;
 
 string? automateTypeStr = Console.ReadLine();
 
-IAutomateConverter converter = null;
 AutomateType automateType = automateTypeStr.To<AutomateType>();
-
-Automate sourceAutomate = new();
-
 if ( automateType == AutomateType.Unknown )
 {
     throw new ArgumentException( nameof( automateType ) );
 }
 
-Automate result = converter.Convert( sourceAutomate );
-Console.WriteLine( result );
+Automate sourceAutomate = new( automateType );
 
-public interface IAutomateConverter
+public class Transition
 {
-    Automate Convert( Automate automate );
-}
 
-
-public class Automate
-{
-    public Automate()
-    {
-
-    }
 }
