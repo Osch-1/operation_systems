@@ -9,6 +9,10 @@ StringManager stringManager = new( input );
 try
 {
     E();
+    if ( stringManager.GetCurrentOrNull() != null )
+    {
+        throw new ArgumentException();
+    }
     Console.WriteLine( "Success" );
 }
 catch ( Exception )
@@ -20,11 +24,6 @@ void E()
 {
     T( stringManager.GetCurrentOrNull() );
     EShtrih( stringManager.GetCurrentOrNull() );
-
-    if ( stringManager.GetCurrentOrNull() != null )
-    {
-        throw new ArgumentException();
-    }
 }
 
 void T( string str )
@@ -79,10 +78,18 @@ void F( string str )
         {
             throw new ArgumentException();
         }
+        stringManager.MoveCarret();
         return;
     }
 
-    if ( str == "-" || str == "7" || str == "a" )
+    if ( str == "-" )
+    {
+        stringManager.MoveCarret();
+        F( stringManager.GetCurrentOrNull() );
+        return;
+    }
+
+    if ( str == "7" || str == "a" )
     {
         stringManager.MoveCarret();
         return;
