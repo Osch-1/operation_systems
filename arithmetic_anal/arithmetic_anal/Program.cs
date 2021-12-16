@@ -1,7 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using arithmetic_anal;
-
 string? input = Console.ReadLine();
 StringManager stringManager = new( input );
 Console.WriteLine( AssertArithmetic() );
