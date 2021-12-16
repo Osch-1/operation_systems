@@ -20,6 +20,11 @@ void E()
 {
     T( stringManager.GetCurrentOrNull() );
     EShtrih( stringManager.GetCurrentOrNull() );
+
+    if ( stringManager.GetCurrentOrNull() != null )
+    {
+        throw new ArgumentException();
+    }
 }
 
 void T( string str )
@@ -60,7 +65,7 @@ void TShtrih( string str )
         stringManager.MoveCarret();
         T( stringManager.GetCurrentOrNull() );
         TShtrih( stringManager.GetCurrentOrNull() );
-    }    
+    }
 }
 
 void F( string str )
@@ -70,7 +75,7 @@ void F( string str )
         stringManager.MoveCarret();
         E();
 
-        if (stringManager.GetCurrentOrNull() != ")")
+        if ( stringManager.GetCurrentOrNull() != ")" )
         {
             throw new ArgumentException();
         }
