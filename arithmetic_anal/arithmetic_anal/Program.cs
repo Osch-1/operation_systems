@@ -4,39 +4,22 @@ using arithmetic_anal;
 
 string? input = Console.ReadLine();
 
-Abobus abobus = new( input );
+StringManager stringManager = new( input );
 
 try
 {
-    E( input );
+    E();
     Console.WriteLine( "Success" );
 }
-catch ( Exception ex )
+catch ( Exception )
 {
     Console.WriteLine( "Error" );
 }
 
-void E( string str )
+void E()
 {
-    if ( str is null || !str.Any() )
-    {
-        throw new ArgumentException( nameof( str ) );
-    }
-
-    T( abobus.GetCurrent() );
-    EShtrih( abobus.GetCurrent() );
-}
-
-void EShtrih( string str )
-{
-    if ( str != "+" )
-    {
-        abobus.MoveCarret();
-        return;
-    }
-
-    T( abobus.GetCurrent() );
-    EShtrih( abobus.GetCurrent() );
+    T( stringManager.GetCurrentOrNull() );
+    EShtrih( stringManager.GetCurrentOrNull() );
 }
 
 void T( string str )
@@ -46,52 +29,84 @@ void T( string str )
         throw new ArgumentException( nameof( str ) );
     }
 
-    F( abobus.GetCurrent() );
-    TShtrih( abobus.GetCurrent() );
+    F( stringManager.GetCurrentOrNull() );
+    TShtrih( stringManager.GetCurrentOrNull() );
+}
+
+void EShtrih( string str )
+{
+    if ( str is null )
+    {
+        return;
+    }
+
+    if ( str == "+" )
+    {
+        stringManager.MoveCarret();
+        T( stringManager.GetCurrentOrNull() );
+        EShtrih( stringManager.GetCurrentOrNull() );
+    }
 }
 
 void TShtrih( string str )
 {
-    if ( str != "*" )
+    if ( str is null )
     {
-        abobus.MoveCarret();
         return;
     }
 
-    T( abobus.GetCurrent() );
-    EShtrih( abobus.GetCurrent() );
+    if ( str == "*" )
+    {
+        stringManager.MoveCarret();
+        T( stringManager.GetCurrentOrNull() );
+        TShtrih( stringManager.GetCurrentOrNull() );
+    }    
 }
 
 void F( string str )
 {
     if ( str == "(" )
     {
-        E( abobus.GetCurrent() );
+        stringManager.MoveCarret();
+        E();
+
+        if (stringManager.GetCurrentOrNull() != ")")
+        {
+            throw new ArgumentException();
+        }
+        return;
     }
 
     if ( str == "-" || str == ")" || str == "7" || str == "a" )
     {
-        abobus.MoveCarret();
+        stringManager.MoveCarret();
         return;
     }
 
     throw new ArgumentException( nameof( str ) );
 }
 
-public class Abobus
+public class StringManager
 {
     private string _str;
     private int _curr = 0;
 
-    public Abobus( string str )
+    public StringManager( string str )
     {
         _str = str;
     }
 
-    public string GetCurrent()
+    public string? GetCurrentOrNull()
     {
-        string res = _str[ _curr ].ToString();
-        return res;
+        try
+        {
+            string res = _str[ _curr ].ToString();
+            return res;
+        }
+        catch ( IndexOutOfRangeException )
+        {
+            return null;
+        }
     }
 
     public void MoveCarret()
