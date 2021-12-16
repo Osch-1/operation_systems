@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "arithmetic_anal", "arithmetic_anal\arithmetic_anal.csproj", "{C41D5B94-AC0A-4F22-9C4F-4C20D35D9237}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "arithmetic_anal", "arithmetic_anal\arithmetic_anal.csproj", "{C41D5B94-AC0A-4F22-9C4F-4C20D35D9237}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
