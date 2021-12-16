@@ -82,7 +82,7 @@ void F( string str )
         return;
     }
 
-    if ( str == "-" || str == ")" || str == "7" || str == "a" )
+    if ( str == "-" || str == "7" || str == "a" )
     {
         stringManager.MoveCarret();
         return;
