@@ -3,25 +3,33 @@
 using arithmetic_anal;
 
 string? input = Console.ReadLine();
-
 StringManager stringManager = new( input );
+Console.WriteLine( AssertArithmetic() );
 
-try
+string AssertArithmetic()
 {
-    E();
-    if ( stringManager.GetCurrentOrNull() != null )
+    try
     {
-        throw new ArgumentException();
+        E();
+        if ( stringManager.GetCurrentOrNull() != null )
+        {
+            throw new ArgumentException();
+        }
+        return "Success";
     }
-    Console.WriteLine( "Success" );
-}
-catch ( Exception )
-{
-    Console.WriteLine( "Error" );
+    catch ( Exception )
+    {
+        return "Error";
+    }
 }
 
 void E()
 {
+    if ( stringManager.GetCurrentOrNull() is null )
+    {
+        throw new ArgumentException();
+    }
+
     T( stringManager.GetCurrentOrNull() );
     EShtrih( stringManager.GetCurrentOrNull() );
 }
@@ -44,7 +52,7 @@ void EShtrih( string str )
         return;
     }
 
-    if ( str == "+" )
+    if ( str == "+" || str == "-" )
     {
         stringManager.MoveCarret();
         T( stringManager.GetCurrentOrNull() );
@@ -69,6 +77,13 @@ void TShtrih( string str )
 
 void F( string str )
 {
+    if ( str == "-" )
+    {
+        stringManager.MoveCarret();
+        F( stringManager.GetCurrentOrNull() );
+        return;
+    }
+
     if ( str == "(" )
     {
         stringManager.MoveCarret();
@@ -78,14 +93,8 @@ void F( string str )
         {
             throw new ArgumentException();
         }
-        stringManager.MoveCarret();
-        return;
-    }
 
-    if ( str == "-" )
-    {
         stringManager.MoveCarret();
-        F( stringManager.GetCurrentOrNull() );
         return;
     }
 
