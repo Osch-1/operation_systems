@@ -1,18 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Reflection;
 using lw1;
 
-string? automateTypeStr = Console.ReadLine();
+string path = Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), @"in1.txt" );
 
-AutomateType automateType = automateTypeStr.To<AutomateType>();
-if ( automateType == AutomateType.Unknown )
-{
-    throw new ArgumentException( nameof( automateType ) );
-}
-
-Automate sourceAutomate = new( automateType );
-
-public class Transition
-{
-
-}
+AutomateReader reader = new( new StreamReader( path ) );
+Automate automate = reader.GetAutomate();
+Console.WriteLine( automate );

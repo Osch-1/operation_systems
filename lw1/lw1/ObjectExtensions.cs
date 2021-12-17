@@ -9,7 +9,7 @@
                 throw new ArgumentNullException( nameof( obj ) );
             }
 
-            Type type = obj.GetType();
+            Type type = typeof( T );
 
             if ( Enum.IsDefined( type, obj ) )
             {
@@ -17,6 +17,11 @@
             }
 
             throw new ArgumentException( $"{obj} is not a value from {type} enumeration" );
+        }
+
+        public static IEnumerable<(T item, int index)> WithIndex<T>( this IEnumerable<T> source )
+        {
+            return source.Select( ( item, index ) => (item, index) );
         }
     }
 }

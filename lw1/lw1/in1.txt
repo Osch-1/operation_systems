@@ -1,4 +1,4 @@
-﻿Mr
-y2 y1 y0 y1
-0 0 0 0
-2 3 3 3
+﻿Moore
+w1/y1 w2/y2 w3/y3 w4/y2 w5/y3
+z1: w2 w5 w5 w3 w3
+z2: w4 w2 w2 w1 w1
