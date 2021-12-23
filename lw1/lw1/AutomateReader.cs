@@ -16,8 +16,7 @@
         {
             AutomateType type = ReadAutomateType();
             List<InputToTransitions> inputsToTransitions = ReadInputsToTransitions();
-            Automate automate = new( type );
-            automate.SetInputsToTransitions( inputsToTransitions );
+            Automate automate = new( type, inputsToTransitions );
 
             return automate;
         }

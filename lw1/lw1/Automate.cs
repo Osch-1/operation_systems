@@ -16,14 +16,26 @@ public class Automate
         _type = type;
     }
 
-    public void SetInputsToTransitions( IEnumerable<InputToTransitions> inputsToTransitions )
+    public Automate( AutomateType type, IEnumerable<InputToTransitions> inputsToTransitions )
     {
         if ( inputsToTransitions is null )
         {
             throw new ArgumentNullException( nameof( inputsToTransitions ) );
         }
 
+        _type = type;
         _inputsToTransitions = inputsToTransitions.ToList();
+    }
+
+    public Automate ToType( AutomateType type )
+    {
+        return type switch
+        {
+            AutomateType.Mealy => MooreToMealyConverter.Convert( this ),
+            AutomateType.Moore => MealyToMooreConverter.Convert( this ),
+            AutomateType.Unknown => throw new ArgumentException( $"Can't convert automate with {AutomateType.Unknown} type between types" ),
+            _ => throw new ArgumentException( "Unknown automate type" ),
+        };
     }
 
     public override string ToString()
@@ -45,8 +57,18 @@ public class Automate
 
     //for now just take first row and call SetStates
     //assume that each transition is defined
-    private IReadOnlyList<string> GetStates()
+    public IReadOnlyList<string> GetStates()
     {
         return _inputsToTransitions.First().GetStates();
+    }
+
+    public IReadOnlyList<string> GetActions()
+    {
+        return _inputsToTransitions.SelectMany( it => it.Transitions ).Select( t => t.Action ).ToList();
+    }
+
+    public IReadOnlyList<string> GetInputs()
+    {
+        return _inputsToTransitions.Select( it => it.Input ).ToList();
     }
 }
