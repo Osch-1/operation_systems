@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-string? input = Console.ReadLine();
+string input = Console.ReadLine();
 StringManager stringManager = new( input );
 Console.WriteLine( AssertArithmetic() );
 
@@ -115,7 +115,7 @@ public class StringManager
         _str = str;
     }
 
-    public string? GetCurrentOrNull()
+    public string GetCurrentOrNull()
     {
         try
         {

@@ -1,12 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Reflection;
-using minimizer.Mealy;
+using minimizer.Automate.Mealy;
 
 Console.WriteLine( "Hello, World!" );
 
 string path = Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), @"mealy.txt" );
 
-Automate automate = Automate.FromStream( new StreamReader( path ) );
+MealyAutomate automate = MealyAutomate.FromStream( new StreamReader( path ) );
 Console.WriteLine( automate );
 
 SignalToAction s1 = new( new( "q0" ), new minimizer.Mealy.Action( new( "q1" ), new Output( "z1" ) ) );

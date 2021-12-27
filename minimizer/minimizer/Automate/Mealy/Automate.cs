@@ -1,19 +1,21 @@
 ﻿using System.Text;
 
-namespace minimizer.Mealy
+namespace minimizer.Automate.Mealy
 {
-    public class Automate
-    {
-        private Dictionary<State, HashSet<SignalToAction>> _tabledAutomate = new();
+    public class MealyAutomate
+    {        
+        private readonly List<State> _states = new();
 
         public void AddState( State state )
-        {
-            if ( _tabledAutomate.ContainsKey( state ) )
-            {
-                throw new InvalidOperationException( $"Automate already contains such state: {state}" );
+        {            
+            if (!_statesH.Contains(state))
+            {                
+                _states.Add(state);
             }
-
-            _tabledAutomate.Add( state, new() );
+            else
+            {
+                throw new InvalidOperationException( $"State {state} already exists" );
+            }
         }
 
         public void AddStates( IEnumerable<State> states )
@@ -22,37 +24,17 @@ namespace minimizer.Mealy
             {
                 AddState( state );
             }
-        }
+        }        
 
-        public void AddSignalToAction( State state, SignalToAction signalToAction )
-        {
-            if ( !_tabledAutomate.ContainsKey( state ) )
-            {
-                AddState( state );
-                _tabledAutomate[ state ] = new HashSet<SignalToAction>
-                {
-                    signalToAction
-                };
-            }
-            else
-            {
-                if ( _tabledAutomate[ state ].Contains( signalToAction ) )
-                {
-                    throw new InvalidOperationException( $"Automate already contains such state -> (signal -> action) pair: {state}->{signalToAction}" );
-                }
-                _tabledAutomate[ state ].Add( signalToAction );
-            }
-        }
-
-        public static Automate FromStream( StreamReader stream )
+        public static MealyAutomate FromStream( StreamReader stream )
         {
             string type = stream.ReadLine();
             if ( type != "Mealy" )
             {
-                throw new ArgumentException( "Expected Moore automate but Mealy has been found." );
+                throw new ArgumentException( "Expected Mealy automate but Moore has been found." );
             }
 
-            Automate automate = new();
+            MealyAutomate automate = new();
 
             List<State> states = stream.ReadLine().Split( ' ' ).Select( s => new State( s ) ).ToList();
             automate.AddStates( states );
@@ -95,6 +77,6 @@ namespace minimizer.Mealy
             }
 
             return sb.ToString();
-        }
+        }*/
     }
 }

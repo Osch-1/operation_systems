@@ -1,4 +1,4 @@
-﻿namespace minimizer.Mealy
+﻿namespace minimizer.Automate.Mealy
 {
     public class SignalToAction : IEquatable<SignalToAction>
     {

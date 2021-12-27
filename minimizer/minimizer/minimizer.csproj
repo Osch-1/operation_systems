@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Moore\" />
+    <Compile Remove="Moore\**" />
+    <EmbeddedResource Remove="Moore\**" />
+    <None Remove="Moore\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +20,10 @@
     <None Update="moore.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Automate\Moore\" />
   </ItemGroup>
 
 </Project>
