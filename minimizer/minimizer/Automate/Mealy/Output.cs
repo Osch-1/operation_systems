@@ -23,7 +23,7 @@
                 return true;
             }
 
-            return _name == other._name;
+            return _name.Equals( other._name );
         }
 
         public override bool Equals( object obj )

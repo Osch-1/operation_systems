@@ -2,13 +2,7 @@
 {
     public class Action : IEquatable<Action>
     {
-        /// <summary>
-        /// State that automate will be in on t time
-        /// </summary>
         private readonly StateInfo _stateInfo;
-        /// <summary>
-        /// Output that automate will produce on t time
-        /// </summary>
         private readonly Output _output;
 
         public StateInfo StateInfo => _stateInfo;

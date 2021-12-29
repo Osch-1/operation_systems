@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using minimizer.Automate;
 
 namespace minimizer
 {
     public static class AutomateReader
     {
-        public 
+        public static Automate<T> ReadFromStream<T>( StreamReader streamReader )
+            where T : IState
+        {
+
+        }
     }
 }

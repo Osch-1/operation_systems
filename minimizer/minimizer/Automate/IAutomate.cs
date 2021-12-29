@@ -1,25 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace minimizer.Automate
+﻿namespace minimizer.Automate
 {
-    public class Automate<T> where T : IState
+    public interface IAutomate<T> where T : IState
     {
-        private readonly List<T> _states;
-
-        public List<T> States => _states;
-
-        public Automate()
+        public IReadOnlyList<T> States
         {
-            _states = new();
+            get;
         }
 
-        public void AddState( T state )
-        {
-            _states.Add( state );
-        }
+        public void AddState( T state );
+
+        public void AddStates( IEnumerable<T> states );
+
+        public Automate<T> FromStream( Stream stream );
     }
 }

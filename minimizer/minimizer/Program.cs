@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿/*// See https://aka.ms/new-console-template for more information
 using System.Reflection;
 using minimizer.Automate.Mealy;
 
@@ -21,4 +21,4 @@ List<HashSet<SignalToAction>> abobus = new List<HashSet<SignalToAction>> { a, b 
 
 var abobusGroup = abobus.GroupBy(SequenceEquals);
 
-Console.WriteLine( a.SequenceEqual( b ) );
+Console.WriteLine( a.SequenceEqual( b ) );*/

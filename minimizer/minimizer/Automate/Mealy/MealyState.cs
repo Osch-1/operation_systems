@@ -2,7 +2,7 @@
 
 namespace minimizer.Automate.Mealy
 {
-    public class State : IEquatable<State>
+    public class MealyState : IState, IEquatable<MealyState>
     {
         private readonly string _name;
 
@@ -10,7 +10,9 @@ namespace minimizer.Automate.Mealy
 
         public string Name => _name;
 
-        public State( string name )
+        public SignalsToActions SignalsToActions => _signalsToActions;
+
+        public MealyState( string name )
         {
             _name = name;
         }
@@ -20,7 +22,7 @@ namespace minimizer.Automate.Mealy
             _signalsToActions = signalsToActions;
         }
 
-        public bool Equals( State other )
+        public bool Equals( MealyState other )
         {
             if ( other == null )
             {
@@ -38,7 +40,7 @@ namespace minimizer.Automate.Mealy
 
         public override bool Equals( object obj )
         {
-            return Equals( obj as State );
+            return Equals( obj as MealyState );
         }
 
         public override int GetHashCode()
