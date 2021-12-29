@@ -1,6 +1,4 @@
-﻿using minimizer.Automate;
-
-namespace minimizer.Automate.Mealy
+﻿namespace minimizer.Automate.Mealy
 {
     public class MealyState : IState, IEquatable<MealyState>
     {

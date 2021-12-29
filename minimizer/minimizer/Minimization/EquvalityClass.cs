@@ -9,10 +9,6 @@ namespace minimizer.Minimization
 {
     public class EquvalityClass
     {
-        private readonly string _name;
-
-        public string Name => _name;
-
-        private Dictionary<string, Dictionary<Signal, string>> _tabledInfo;
+        
     }
 }
