@@ -1,6 +1,6 @@
-﻿namespace minimizer.Automate
+﻿namespace minimizer
 {
-    public enum AutomateKind
+    public enum AutomateType
     {
         Unknown = 0,
         Mealy = 1,

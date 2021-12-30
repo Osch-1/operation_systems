@@ -3,11 +3,9 @@
     public class MealyState : IState, IEquatable<MealyState>
     {
         private readonly string _name;
-
         private SignalsToActions _signalsToActions;
 
         public string Name => _name;
-
         public SignalsToActions SignalsToActions => _signalsToActions;
 
         public MealyState( string name )
@@ -32,8 +30,8 @@
                 return true;
             }
 
-            return other._name.Equals( _name )
-                && other._signalsToActions.Equals( _signalsToActions );
+            return _name.Equals( other._name )
+                || _signalsToActions.Equals( other._signalsToActions );
         }
 
         public override bool Equals( object obj )

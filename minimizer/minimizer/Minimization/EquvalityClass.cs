@@ -9,6 +9,13 @@ namespace minimizer.Minimization
 {
     public class EquvalityClass
     {
-        
-    }
+        private string _name;
+
+
+
+        public EquvalityClass( string name )
+        {
+            _name = name;
+        }
+    }    
 }

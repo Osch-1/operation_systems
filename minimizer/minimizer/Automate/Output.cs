@@ -1,24 +1,24 @@
-﻿namespace minimizer.Automate.Mealy
+﻿namespace minimizer.Automate
 {
-    public class StateInfo : IEquatable<StateInfo>
+    public class Output : IEquatable<Output>
     {
         private readonly string _name;
 
         public string Name => _name;
 
-        public StateInfo( string name )
+        public Output( string name )
         {
             _name = name;
         }
 
-        public bool Equals( StateInfo other )
+        public bool Equals( Output other )
         {
             if ( other is null )
             {
                 return false;
             }
 
-            if ( ReferenceEquals( other, this ) )
+            if ( ReferenceEquals( this, other ) )
             {
                 return true;
             }
@@ -28,12 +28,17 @@
 
         public override bool Equals( object obj )
         {
-            return Equals( obj as StateInfo );
+            return Equals( obj as Output );
         }
 
         public override int GetHashCode()
         {
             return HashCode.Combine( _name );
+        }
+
+        public override string ToString()
+        {
+            return $"{_name}";
         }
     }
 }

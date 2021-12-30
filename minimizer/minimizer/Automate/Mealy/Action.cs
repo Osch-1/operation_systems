@@ -2,15 +2,15 @@
 {
     public class Action : IEquatable<Action>
     {
-        private readonly StateInfo _stateInfo;
+        private readonly MealyState _state;
         private readonly Output _output;
 
-        public StateInfo StateInfo => _stateInfo;
+        public MealyState State => _state;
         public Output Output => _output;
 
-        public Action( StateInfo stateInfo, Output output )
+        public Action( MealyState state, Output output )
         {
-            _stateInfo = stateInfo;
+            _state = state;
             _output = output;
         }
 
@@ -26,8 +26,8 @@
                 return true;
             }
 
-            return other._stateInfo.Equals( _stateInfo )
-                && other._output.Equals( _output );
+            return _state.Name.Equals( other._state.Name )
+                && _output.Equals( other._output );
         }
 
         public override bool Equals( object obj )
@@ -37,12 +37,12 @@
 
         public override int GetHashCode()
         {
-            return HashCode.Combine( _stateInfo, _output );
+            return HashCode.Combine( _state, _output );
         }
 
         public override string ToString()
         {
-            return $"{_stateInfo}/{_output}";
+            return $"{_state}/{_output}";
         }
     }
 }

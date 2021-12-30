@@ -1,19 +1,19 @@
-﻿namespace minimizer.Automate.Mealy
+﻿namespace minimizer.Automate
 {
-    public class Output : IEquatable<Output>
+    public class Signal : IEquatable<Signal>
     {
         private readonly string _name;
 
         public string Name => _name;
 
-        public Output( string name )
+        public Signal( string name )
         {
             _name = name;
         }
 
-        public bool Equals( Output other )
+        public bool Equals( Signal other )
         {
-            if ( other is null )
+            if ( other == null )
             {
                 return false;
             }
@@ -23,17 +23,17 @@
                 return true;
             }
 
-            return _name.Equals( other._name );
+            return other._name.Equals( _name );
         }
 
         public override bool Equals( object obj )
         {
-            return Equals( obj as Output );
+            return Equals( obj as Signal );
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine( _name );
+            return _name.GetHashCode();
         }
 
         public override string ToString()

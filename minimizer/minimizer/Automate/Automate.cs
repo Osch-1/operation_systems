@@ -1,6 +1,7 @@
 ﻿namespace minimizer.Automate
 {
-    public abstract class Automate<T> : IAutomate<T> where T : IState
+    public abstract class Automate<T> : IAutomate
+        where T : IState
     {
         private readonly List<T> _states;
 
@@ -9,6 +10,11 @@
         public Automate()
         {
             _states = new();
+        }
+
+        public Automate( IEnumerable<T> states )
+        {
+            _states = states.ToList();
         }
 
         public void AddState( T state )
@@ -23,7 +29,5 @@
                 AddState( state );
             }
         }
-
-        public abstract Automate<T> FromStream( Stream stream );
     }
 }
