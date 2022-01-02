@@ -1,6 +1,6 @@
 ﻿namespace minimizer.Automate
 {
-    public interface IAutomate
+    public interface IAutomate : IMinimizable
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace minimizer.Automate.Mealy
 {
-    public class Action : IEquatable<Action>
+    public class MealyAction : IAction, IEquatable<MealyAction>
     {
         private readonly MealyState _state;
         private readonly Output _output;
@@ -8,13 +8,13 @@
         public MealyState State => _state;
         public Output Output => _output;
 
-        public Action( MealyState state, Output output )
+        public MealyAction( MealyState state, Output output )
         {
             _state = state;
             _output = output;
         }
 
-        public bool Equals( Action other )
+        public bool Equals( MealyAction other )
         {
             if ( other is null )
             {
@@ -32,7 +32,7 @@
 
         public override bool Equals( object obj )
         {
-            return Equals( obj as Action );
+            return Equals( obj as MealyAction );
         }
 
         public override int GetHashCode()

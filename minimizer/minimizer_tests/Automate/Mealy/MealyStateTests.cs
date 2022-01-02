@@ -17,28 +17,28 @@ namespace minimizer_tests.Automate.Mealy
             MealyState ms1 = new( "q1" );
             MealyState ms2 = new( "q2" );
 
-            List<SignalToAction> signalsToActionsList = new()
+            List<SignalToAction<MealyAction>> signalsToActionsList = new()
             {
-                new SignalToAction( new Signal( "x1" ), new minimizer.Automate.Mealy.Action( ms1, new Output( "y1" ) ) ),
-                new SignalToAction( new Signal( "x2" ), new minimizer.Automate.Mealy.Action( ms0, new Output( "y1" ) ) )
+                new SignalToAction<MealyAction>( new Signal( "x1" ), new MealyAction( ms1, new Output( "y1" ) ) ),
+                new SignalToAction<MealyAction>( new Signal( "x2" ), new MealyAction( ms0, new Output( "y1" ) ) )
             };
-            SignalsToActions signalsToActions = new( signalsToActionsList );
+            SignalsToActions<MealyAction> signalsToActions = new( signalsToActionsList );
             ms0.SetSignalsToActions( signalsToActions );
 
-            List<SignalToAction> signalsToActionsList1 = new()
+            List<SignalToAction<MealyAction>> signalsToActionsList1 = new()
             {
-                new SignalToAction( new Signal( "x1" ), new minimizer.Automate.Mealy.Action( ms0, new Output( "y1" ) ) ),
-                new SignalToAction( new Signal( "x2" ), new minimizer.Automate.Mealy.Action( ms2, new Output( "y1" ) ) )
+                new SignalToAction<MealyAction>( new Signal( "x1" ), new MealyAction( ms0, new Output( "y1" ) ) ),
+                new SignalToAction<MealyAction>( new Signal( "x2" ), new MealyAction( ms2, new Output( "y1" ) ) )
             };
-            SignalsToActions signalsToActions1 = new( signalsToActionsList1 );
+            SignalsToActions<MealyAction> signalsToActions1 = new( signalsToActionsList1 );
             ms1.SetSignalsToActions( signalsToActions1 );
 
-            List<SignalToAction> signalsToActionsList2 = new()
+            List<SignalToAction<MealyAction>> signalsToActionsList2 = new()
             {
-                new SignalToAction( new Signal( "x1" ), new minimizer.Automate.Mealy.Action( ms0, new Output( "y1" ) ) ),
-                new SignalToAction( new Signal( "x2" ), new minimizer.Automate.Mealy.Action( ms2, new Output( "y1" ) ) )
+                new SignalToAction<MealyAction>( new Signal( "x1" ), new MealyAction( ms0, new Output( "y1" ) ) ),
+                new SignalToAction<MealyAction>( new Signal( "x2" ), new MealyAction( ms2, new Output( "y1" ) ) )
             };
-            SignalsToActions signalsToActions2 = new( signalsToActionsList2 );
+            SignalsToActions<MealyAction> signalsToActions2 = new( signalsToActionsList2 );
             ms2.SetSignalsToActions( signalsToActions2 );
 
             MealyAutomate automate = new( new List<MealyState> { ms0, ms1, ms2 } );
@@ -59,28 +59,28 @@ namespace minimizer_tests.Automate.Mealy
             MealyState ms2 = new( "q2" );
 
             //Act
-            List<SignalToAction> signalsToActionsList = new()
+            List<SignalToAction<MealyAction>> signalsToActionsList = new()
             {
-                new SignalToAction( new Signal( "x1" ), new minimizer.Automate.Mealy.Action( ms1, new Output( "y1" ) ) ),
-                new SignalToAction( new Signal( "x2" ), new minimizer.Automate.Mealy.Action( ms0, new Output( "y1" ) ) )
+                new SignalToAction<MealyAction>( new Signal( "x1" ), new MealyAction( ms1, new Output( "y1" ) ) ),
+                new SignalToAction<MealyAction>( new Signal( "x2" ), new MealyAction( ms0, new Output( "y1" ) ) )
             };
-            SignalsToActions signalsToActions = new( signalsToActionsList );
+            SignalsToActions<MealyAction> signalsToActions = new( signalsToActionsList );
             ms0.SetSignalsToActions( signalsToActions );
 
-            List<SignalToAction> signalsToActionsList1 = new()
+            List<SignalToAction<MealyAction>> signalsToActionsList1 = new()
             {
-                new SignalToAction( new Signal( "x1" ), new minimizer.Automate.Mealy.Action( ms0, new Output( "y1" ) ) ),
-                new SignalToAction( new Signal( "x2" ), new minimizer.Automate.Mealy.Action( ms2, new Output( "y1" ) ) )
+                new SignalToAction<MealyAction>( new Signal( "x1" ), new MealyAction( ms0, new Output( "y1" ) ) ),
+                new SignalToAction<MealyAction>( new Signal( "x2" ), new MealyAction( ms2, new Output( "y1" ) ) )
             };
-            SignalsToActions signalsToActions1 = new( signalsToActionsList1 );
+            SignalsToActions<MealyAction> signalsToActions1 = new( signalsToActionsList1 );
             ms1.SetSignalsToActions( signalsToActions1 );
 
-            List<SignalToAction> signalsToActionsList2 = new()
+            List<SignalToAction<MealyAction>> signalsToActionsList2 = new()
             {
-                new SignalToAction( new Signal( "x1" ), new minimizer.Automate.Mealy.Action( ms0, new Output( "y1" ) ) ),
-                new SignalToAction( new Signal( "x2" ), new minimizer.Automate.Mealy.Action( ms2, new Output( "y1" ) ) )
+                new SignalToAction<MealyAction>( new Signal( "x1" ), new MealyAction( ms0, new Output( "y1" ) ) ),
+                new SignalToAction<MealyAction>( new Signal( "x2" ), new MealyAction( ms2, new Output( "y1" ) ) )
             };
-            SignalsToActions signalsToActions2 = new( signalsToActionsList2 );
+            SignalsToActions<MealyAction> signalsToActions2 = new( signalsToActionsList2 );
             ms2.SetSignalsToActions( signalsToActions2 );
 
             //Assert

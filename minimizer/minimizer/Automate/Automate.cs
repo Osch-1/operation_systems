@@ -1,4 +1,6 @@
-﻿namespace minimizer.Automate
+﻿using System.Text;
+
+namespace minimizer.Automate
 {
     public abstract class Automate<T> : IAutomate
         where T : IState
@@ -29,5 +31,7 @@
                 AddState( state );
             }
         }
+
+        public abstract void Minimize();
     }
 }

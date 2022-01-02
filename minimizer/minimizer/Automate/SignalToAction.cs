@@ -1,20 +1,21 @@
-﻿namespace minimizer.Automate.Mealy
+﻿namespace minimizer.Automate
 {
-    public class SignalToAction : IEquatable<SignalToAction>
+    public class SignalToAction<T> : IEquatable<SignalToAction<T>>
+        where T : IAction
     {
         private readonly Signal _signal;
-        private readonly Action _action;
+        private readonly T _action;
 
         public Signal Signal => _signal;
-        public Action Action => _action;
+        public T Action => _action;
 
-        public SignalToAction( Signal signal, Action action )
+        public SignalToAction( Signal signal, T action )
         {
             _signal = signal;
             _action = action;
         }
 
-        public bool Equals( SignalToAction other )
+        public bool Equals( SignalToAction<T> other )
         {
             if ( other is null )
             {
@@ -32,7 +33,7 @@
 
         public override bool Equals( object obj )
         {
-            return Equals( obj as SignalToAction );
+            return Equals( obj as SignalToAction<T> );
         }
 
         public override int GetHashCode()

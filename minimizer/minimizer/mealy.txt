@@ -1,4 +1,4 @@
 ﻿Mealy
 q0 q1 q2
-z1: q1/y1 q0/y2 q1/y1
-z2: q2/y2 q2/y2 q0/y1
+z1: q1/y1 q0/y1 q0/y1
+z2: q0/y1 q2/y1 q2/y1

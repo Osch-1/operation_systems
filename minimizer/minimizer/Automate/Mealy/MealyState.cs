@@ -3,17 +3,17 @@
     public class MealyState : IState, IEquatable<MealyState>
     {
         private readonly string _name;
-        private SignalsToActions _signalsToActions;
+        private SignalsToActions<MealyAction> _signalsToActions = new();
 
         public string Name => _name;
-        public SignalsToActions SignalsToActions => _signalsToActions;
+        public SignalsToActions<MealyAction> SignalsToActions => _signalsToActions;
 
         public MealyState( string name )
         {
             _name = name;
         }
 
-        public void SetSignalsToActions( SignalsToActions signalsToActions )
+        public void SetSignalsToActions( SignalsToActions<MealyAction> signalsToActions )
         {
             _signalsToActions = signalsToActions;
         }
@@ -30,8 +30,7 @@
                 return true;
             }
 
-            return _name.Equals( other._name )
-                || _signalsToActions.Equals( other._signalsToActions );
+            return _signalsToActions.Equals( other._signalsToActions );
         }
 
         public override bool Equals( object obj )
@@ -39,14 +38,14 @@
             return Equals( obj as MealyState );
         }
 
-        public override int GetHashCode()
-        {
-            return _name.GetHashCode();
-        }
-
         public override string ToString()
         {
             return $"{_name}";
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine( _name, _signalsToActions );
         }
     }
 }
