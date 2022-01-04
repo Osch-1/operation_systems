@@ -13,44 +13,34 @@ namespace minimizer
             IAutomate automate = reader.ReadFromStream();
 
             automate.Minimize();
-
-            var a = automate as MealyAutomate;
-
-            Console.WriteLine( a.States[ 1 ].Equals( a.States[ 2 ] ) );
-
-            var b = a.States.Distinct().ToList();
-
-            Console.WriteLine( b.Count );
-
-            IState st = a.States[ 1 ];
-            IState st2 = a.States[ 2 ];
-            Console.WriteLine( st.Equals( st2 ) );
+            Console.WriteLine(automate);
         }
     }
 
-    /*    public class MealyStateEqualityComparer : IEqualityComparer<MealyState>
+    public class MealyStateEqualityComparer : IEqualityComparer<MealyState>
+    {
+        public bool Equals( MealyState x, MealyState y )
         {
-            public bool Equals( MealyState x, MealyState y )
-            {
-                return x.Equals( y );
-            }
-
-            public int GetHashCode( [DisallowNull] MealyState obj )
-            {
-                return obj.GetHashCode();
-            }
+            return x.SignalsToActions.ToString().Equals( y.SignalsToActions.ToString() );
         }
 
-        public class SignalsToActionsEqualityComparer : IEqualityComparer<SignalsToActions<MealyAction>>
+        public int GetHashCode( [DisallowNull] MealyState obj )
         {
-            public bool Equals( SignalsToActions<MealyAction> x, SignalsToActions<MealyAction> y )
-            {
-                return x.Equals( y );
-            }
+            //GetHashCode - exclued names from states
+            return obj.GetHashCode();
+        }
+    }
 
-            public int GetHashCode( [DisallowNull] SignalsToActions<MealyAction> obj )
-            {
-                return obj.GetHashCode();
-            }
-        }*/
+    public class SignalsToActionsEqualityComparer : IEqualityComparer<SignalsToActions<MealyAction>>
+    {
+        public bool Equals( SignalsToActions<MealyAction> x, SignalsToActions<MealyAction> y )
+        {
+            return x.Equals( y );
+        }
+
+        public int GetHashCode( [DisallowNull] SignalsToActions<MealyAction> obj )
+        {
+            return obj.GetHashCode();
+        }
+    }
 }

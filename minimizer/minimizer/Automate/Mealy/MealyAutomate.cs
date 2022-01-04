@@ -18,8 +18,22 @@ namespace minimizer.Automate.Mealy
         public override void Minimize()
         {
             var states = States.ToList();
+            List<IGrouping<SignalsToActions<MealyAction>, MealyState>> statesByStaGroup = states.GroupBy( s => s.SignalsToActions ).ToList();
+            List<EqualityClass> equalityClasses = statesByStaGroup.Select( s => new EqualityClass( s ) ).ToList();
+            foreach ( EqualityClass equalityClass in equalityClasses )
+            {
+                foreach ( StateToEqualityClass stec in equalityClass.StatesToEqualityClass )
+                {
+                    MealyState state = stec.State;
 
-            var s = states.GroupBy( s => s.SignalsToActions );
+                    foreach ( SignalToAction<MealyAction> signalToActions in state.SignalsToActions.SignalToActions )
+                    {
+                        MealyState actionState = signalToActions.Action.State;
+                        EqualityClass eqClassByActionState = equalityClasses.Find( ec => ec.StatesToEqualityClass.Exists( stc => stc.State.Equals( actionState ) ) );
+                        stec.EqualityClasses.Add( eqClassByActionState );
+                    }
+                }
+            }
         }
 
         public override string ToString()
@@ -42,9 +56,37 @@ namespace minimizer.Automate.Mealy
             return result.ToString();
         }
 
+        private class StateToEqualityClass
+        {
+            public MealyState State { get; set; }
+            public List<EqualityClass> EqualityClasses { get; set; } = new();
+
+            public StateToEqualityClass( MealyState state )
+            {
+                State = state;
+            }
+
+
+        }
+
         private class EqualityClass
         {
+            private static int counter = 0;
 
+            public string Name { get; set; }
+            public List<StateToEqualityClass> StatesToEqualityClass { get; set; }
+
+            public EqualityClass( IEnumerable<MealyState> states )
+            {
+                Name = $"A{counter}";
+                StatesToEqualityClass = states.Select( s => new StateToEqualityClass( s ) ).ToList();
+                counter++;
+            }
+
+            public override string ToString()
+            {
+                return Name;
+            }
         }
     }
 }

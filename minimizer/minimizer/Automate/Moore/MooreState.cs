@@ -34,7 +34,7 @@
             }
 
             return _name == other._name
-                && _output == other._output
+                || _output == other._output
                 && _signalsToActions.Equals( other._signalsToActions );
         }
 
@@ -50,7 +50,7 @@
 
         public override int GetHashCode()
         {
-            return HashCode.Combine( _name, _output, _signalsToActions );
+            return HashCode.Combine( _output, _signalsToActions );
         }
 
         public override string ToString()

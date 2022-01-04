@@ -1,4 +1,4 @@
 ﻿Mealy
-q0 q1 q2
-z1: q1/y1 q0/y1 q0/y1
-z2: q0/y1 q2/y1 q2/y1
+a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12
+z1: a10/w1 a12/w1 a5/w2 a7/w2 a3/w1 a7/w2 a3/w1 a10/w1 a7/w2 a1/w2 a5/w2 a2/w2
+z2: a5/w2 a8/w2 a6/w1 a11/w1 a9/w2 a11/w1 a6/w2 a4/w2 a6/w1 a8/w1 a9/w1 a8/w1

@@ -26,8 +26,7 @@
                 return true;
             }
 
-            return _state.Name.Equals( other._state.Name )
-                && _output.Equals( other._output );
+            return _output.Equals( other._output );
         }
 
         public override bool Equals( object obj )
@@ -42,12 +41,12 @@
 
         public override int GetHashCode()
         {
-            return HashCode.Combine( _state, _output );
+            return HashCode.Combine( _output );
         }
 
         public override string ToString()
         {
             return $"{_state}/{_output}";
-        }        
+        }
     }
 }

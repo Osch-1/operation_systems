@@ -38,7 +38,16 @@
                 return true;
             }
 
-            return _signalToActions.SequenceEqual( other._signalToActions );
+            foreach ( var a in _signalToActions )
+            {
+                var b = other._signalToActions.Where( sta => sta.Signal.Equals( a.Signal ) ).First();
+                if ( !a.Equals( b ) )
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public override bool Equals( object obj )
@@ -48,7 +57,20 @@
 
         public override int GetHashCode()
         {
-            return _signalToActions.GetHashCode();
+            unchecked
+            {
+                int hash = 19;
+                foreach ( SignalToAction<T> sta in _signalToActions )
+                {
+                    hash = hash * 31 + sta.GetHashCode();
+                }
+                return hash;
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{string.Join( ' ', _signalToActions )}";
         }
     }
 }

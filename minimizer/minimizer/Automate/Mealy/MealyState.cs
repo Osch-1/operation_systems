@@ -19,7 +19,7 @@
         }
 
         public bool Equals( MealyState other )
-        {            
+        {
             if ( other == null )
             {
                 return false;
@@ -50,7 +50,7 @@
 
         public override int GetHashCode()
         {
-            return HashCode.Combine( _name, _signalsToActions );
+            return _signalsToActions.GetHashCode();
         }
     }
 }
