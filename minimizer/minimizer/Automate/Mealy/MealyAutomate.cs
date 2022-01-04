@@ -15,24 +15,11 @@ namespace minimizer.Automate.Mealy
         {
         }
 
-        private class SignalsToActionsEqualityComparer : IEqualityComparer<SignalsToActions<MealyAction>>
-        {
-            public bool Equals( SignalsToActions<MealyAction> x, SignalsToActions<MealyAction> y )
-            {
-                return x.Equals( y );
-            }
-
-            public int GetHashCode( [DisallowNull] SignalsToActions<MealyAction> obj )
-            {
-                return obj.GetHashCode();
-            }
-        }
-
         public override void Minimize()
         {
             var states = States.ToList();
 
-            var s = states.GroupBy( s => s.SignalsToActions, new SignalsToActionsEqualityComparer() );
+            var s = states.GroupBy( s => s.SignalsToActions );
         }
 
         public override string ToString()

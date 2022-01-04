@@ -1,6 +1,6 @@
 ﻿namespace minimizer.Automate
 {
-    public interface IState
-    {                 
+    public interface IState : IEquatable<IState>
+    {
     }
 }

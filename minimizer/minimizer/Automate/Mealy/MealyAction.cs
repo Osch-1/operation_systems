@@ -35,6 +35,11 @@
             return Equals( obj as MealyAction );
         }
 
+        public bool Equals( IAction other )
+        {
+            return Equals( other as MealyAction );
+        }
+
         public override int GetHashCode()
         {
             return HashCode.Combine( _state, _output );
@@ -43,6 +48,6 @@
         public override string ToString()
         {
             return $"{_state}/{_output}";
-        }
+        }        
     }
 }

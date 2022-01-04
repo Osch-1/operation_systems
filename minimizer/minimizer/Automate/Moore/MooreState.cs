@@ -38,6 +38,11 @@
                 && _signalsToActions.Equals( other._signalsToActions );
         }
 
+        public bool Equals( IState state )
+        {
+            return Equals( state as MooreState );
+        }
+
         public override bool Equals( object obj )
         {
             return Equals( obj as MooreState );

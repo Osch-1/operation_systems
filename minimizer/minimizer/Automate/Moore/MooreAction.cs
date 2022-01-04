@@ -27,6 +27,11 @@
                 && _destState.Output.Equals( other._destState.Output );
         }
 
+        public bool Equals( IAction other )
+        {
+            return Equals( other as MooreAction );
+        }
+
         public override bool Equals( object obj )
         {
             return Equals( obj as MooreAction );

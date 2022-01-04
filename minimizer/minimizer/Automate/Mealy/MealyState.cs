@@ -19,7 +19,7 @@
         }
 
         public bool Equals( MealyState other )
-        {
+        {            
             if ( other == null )
             {
                 return false;
@@ -31,6 +31,11 @@
             }
 
             return _signalsToActions.Equals( other._signalsToActions );
+        }
+
+        public bool Equals( IState state )
+        {
+            return Equals( state as MealyState );
         }
 
         public override bool Equals( object obj )
