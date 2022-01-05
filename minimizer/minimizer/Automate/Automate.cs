@@ -5,7 +5,7 @@ namespace minimizer.Automate
     public abstract class Automate<T> : IAutomate
         where T : IState
     {
-        private readonly List<T> _states;
+        private List<T> _states;
 
         public IReadOnlyList<T> States => _states;
 
@@ -30,6 +30,11 @@ namespace minimizer.Automate
             {
                 AddState( state );
             }
+        }
+
+        protected void SetStates( IEnumerable<T> newStates )
+        {
+            _states = newStates.ToList();
         }
 
         public abstract void Minimize();
