@@ -4,7 +4,7 @@
     {
         private readonly MooreState _destState;
 
-        public MooreState DestState => _destState;
+        public MooreState State => _destState;
 
         public MooreAction( MooreState destState )
         {
@@ -23,8 +23,7 @@
                 return true;
             }
 
-            return _destState.Name.Equals( other._destState.Name )
-                && _destState.Output.Equals( other._destState.Output );
+            return _destState.Name.Equals( other._destState.Name );
         }
 
         public bool Equals( IAction other )
@@ -39,7 +38,7 @@
 
         public override int GetHashCode()
         {
-            return HashCode.Combine( _destState );
+            return _destState.GetHashCode();
         }
 
         public override string ToString()

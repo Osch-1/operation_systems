@@ -6,7 +6,7 @@ namespace minimizer
     {
         public static void Main( string[] args )
         {
-            string path = Path.Combine( Environment.CurrentDirectory, "mealy.txt" );
+            string path = Path.Combine( Environment.CurrentDirectory, "moore.txt" );
             AutomateReader reader = new( new StreamReader( path ) );
             IAutomate automate = reader.ReadFromStream();
 

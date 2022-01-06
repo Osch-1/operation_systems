@@ -1,4 +1,4 @@
 ﻿Moore
-m0/y1 m1/y2 m2/y1 m3/y2
-z1: m2 m2 m1 m2
-z2: m3 m3 m3 m0
+a1/w1 a2/w1 a3/w3 a4/w3 a5/w3 a6/w2 a7/w3 a8/w1 a9/w2 a10/w2 a11/w2 a12/w2
+z1: a10 a12 a5 a7 a3 a7 a3 a10 a7 a1 a5 a2
+z2: a5 a7 a6 a11 a9 a11 a6 a4 a6 a8 a9 a8

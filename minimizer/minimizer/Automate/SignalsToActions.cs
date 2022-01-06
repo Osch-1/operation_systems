@@ -38,9 +38,9 @@
                 return true;
             }
 
-            foreach ( var a in _signalToActions )
+            foreach ( SignalToAction<T> a in _signalToActions )
             {
-                var b = other._signalToActions.Where( sta => sta.Signal.Equals( a.Signal ) ).First();
+                SignalToAction<T> b = other._signalToActions.Where( sta => sta.Signal.Equals( a.Signal ) ).First();
                 if ( !a.Equals( b ) )
                 {
                     return false;

@@ -33,9 +33,7 @@
                 return true;
             }
 
-            return _name == other._name
-                || _output == other._output
-                && _signalsToActions.Equals( other._signalsToActions );
+            return _output == other._output;                
         }
 
         public bool Equals( IState state )
@@ -50,7 +48,7 @@
 
         public override int GetHashCode()
         {
-            return HashCode.Combine( _output, _signalsToActions );
+            return HashCode.Combine( _output );
         }
 
         public override string ToString()
