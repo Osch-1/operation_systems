@@ -1,0 +1,5 @@
+﻿Right
+S: aS|aA|aB|bA
+A: aC|bB
+C: aC|b
+B: aC|a

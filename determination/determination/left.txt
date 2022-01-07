@@ -1,0 +1,5 @@
+﻿Left
+S: Sa|Aa|Ba|Ab
+A: Ca|Bb
+C: Ca|b
+B: Ca|a
