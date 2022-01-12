@@ -34,13 +34,6 @@ q6{operator}
 q7{operator|comment}
 qe{error}
 
-
-Не поддерживается:
--raw string - @".."
--interpolation $"{}"
--generics
--
-
 Токены:
 -Число десятичное со знаком 
 

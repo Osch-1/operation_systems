@@ -3,6 +3,6 @@
     public interface ILexerState
     {
         //returns last none whitespace(\r \t \b...)  character
-        public string GetTokenizationInfo();
+        public void Next( string character );
     }
 }
