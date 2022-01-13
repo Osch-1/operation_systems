@@ -5,7 +5,6 @@ namespace CSharpLexicalAnalyzer
     {
         public string Buffer { get; }
 
-        public void ReadCharInfBuffer();
         public void ClearBuffer();
         public void SetBuffer( string buffer );
         public void SetState( ILexerState state );

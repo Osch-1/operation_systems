@@ -3,6 +3,6 @@ namespace CSharpLexicalAnalyzer
 {
     public interface ILexer
     {
-        public Task<List<TokenInfo>> TokenizeAsync( StreamReader reader );
+        public List<TokenInfo> TokenizeAsync( StreamReader reader );
     }
 }

@@ -13,33 +13,82 @@ Acitons:
 -store_lexem
 -throw
 
-q0{empty buffer}
+q0{empty_buffer}
   letter -> q3{identifier}/store_symbol
   digit -> q4{number}/store_symbol
   delimiter -> q5{delimiter}/store_symbol
   operator -> q6{operator}/store_symbol
   double_quote -> q2{string_literal}/store_symbol
   quote -> q1{character}/store_symbol
-  / -> q7{operator|comment}
+  / -> q6{operator}/store_symbol
+  \ -> q7{comment}/store_symbol
   other -> q0{empty buffer}/store_lexem
 
 q1{character}
-
-
+  letter -> validate_state() if (valid) -> q1{character} else throw exception
+  digit -> validate_state() if (valid) -> q1{character} else throw exception
+  delimeter -> validate_state() if (valid) -> q1{character} else throw exception
+  operator -> validate_state() if (valid) -> q1{character} else throw exception
+  double_quote -> validate_state() if (valid) -> q1{character} else throw exception
+  quote -> validate_state() if (valid) -> q1{character} else throw exception
+  / -> validate_state() if (valid) -> q1{character} else throw exception
+  \ -> validate_state() if (valid) -> q1{character} else throw exception
+  other -> validate_state() if (valid) -> q1{character} else throw exception  
+  
 q2{string_literal}
+  letter -> validate_state() if (valid) -> q2{string_literal} else throw exception
+  digit -> validate_state() if (valid) -> q2{string_literal} else throw exception
+  delimeter -> validate_state() if (valid) -> q2{string_literal} else throw exception
+  operator -> validate_state() if (valid) -> q2{string_literal} else throw exception
+  double_quote -> q2{string_leteral} + store_lexem + store_new_symbol
+  quote -> validate_state() if (valid) -> q2{string_literal} else throw exception
+  / -> validate_state() if (valid) -> q2{string_literal} else throw exception
+  \ -> validate_state() if (valid) -> q2{string_literal} else throw exception
+  other -> validate_state() if (valid) -> q2{string_literal} else throw exception
+ 
 q3{identifier}
-q4{number}
-q5{delimiter}
-q6{operator}
-q7{operator|comment}
-qe{error}
+  letter -> validate_state() if (valid) -> q3{identifier} else throw exception
+  digit -> validate_state() if (valid) -> q3{identifier} else throw exception
+  delimeter -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  operator -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  double_quote -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  quote -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  / -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  \ -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  other -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception  
 
+q4{number}
+  letter -> validate_state() if (valid) -> q3{identifier} else throw exception
+  digit -> validate_state() if (valid) -> q3{identifier} else throw exception
+  delimeter -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  operator -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  double_quote -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  quote -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  / -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  \ -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception
+  other -> validate_state() if (valid) -> q0{empty_buffer} + store_lexem + store_new_symbol else throw exception  
+  
+q5{delimiter}
+  delimeter_part{it will be defined inside the state} -> q5{delimeter}
+  else -> go to state by symbol + store_lexem (delimeter)
+  
+q6{operator}
+  operator_part{it will be defined inside the state} -> q5{delimeter}
+  else -> go to state by symbol + store_lexem (delimeter)
+  
+q7{comment}
+  eoln -> q0{empty_buffer}
+  eof -> throw
+  else -> q7{comment}  
+  
+qe{error}
+  throw error, maybe i won't add this state
 
 Не поддерживается:
 -raw string - @".."
 -interpolation $"{}"
 -generics
--
+-char_literal inside string
 
 Токены:
 -Число десятичное со знаком 

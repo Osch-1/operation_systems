@@ -8,6 +8,8 @@ namespace CSharpLexicalAnalyzer
         private ILexerState _currentState;
         private string _buffer;
 
+        public string Buffer => _buffer;
+
 
         private HashSet<string> _operators = new()
         {
@@ -50,6 +52,7 @@ namespace CSharpLexicalAnalyzer
             ">>",
             ">>="
         };
+
         private HashSet<string> _delimeters = new()
         {
             " ",
@@ -73,14 +76,14 @@ namespace CSharpLexicalAnalyzer
 
         }
 
-        public async Task<List<TokenInfo>> TokenizeAsync( StreamReader reader )
+        public List<TokenInfo> TokenizeAsync( StreamReader reader )
         {
             while ( reader.Peek() > 0 )
             {
                 _currentState.Next( reader.Read().ToString() );
             }
 
-            return null;
+            return new();
         }
 
         public void SetState( ILexerState state )
@@ -88,12 +91,6 @@ namespace CSharpLexicalAnalyzer
             _currentState = state;
         }
 
-        public string Buffer => throw new NotImplementedException();
-
-        public void ReadCharInfBuffer()
-        {
-            throw new NotImplementedException();
-        }
 
         public void ClearBuffer()
         {
