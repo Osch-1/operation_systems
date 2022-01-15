@@ -1,13 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
-namespace CSharpLexicalAnalyzer
-{
-    public interface ILexerAutomate
-    {
-        public string Buffer { get; }
+﻿using CSharpLexicalAnalyzer.Token;
 
-        public void ClearBuffer();
-        public void SetBuffer( string buffer );
-        public void SetState( ILexerState state );
-        public void AddTokenInfo( TokenInfo tokenInfo );
-    }
+namespace CSharpLexicalAnalyzer;
+
+internal interface ILexerAutomate
+{
+    public string Buffer { get; }
+    public int Position { get; }
+
+    public void ClearBuffer();
+    public void AppendToBuffer( string str );
+    public void MoveCurrentPos();
+    public void SetState( LexerState state );
+    public void StoreTokenInfo( TokenInfo tokenInfo );
 }

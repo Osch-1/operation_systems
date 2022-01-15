@@ -8,6 +8,26 @@ Signals:
 - / - начало комментария
 - другие
 
+//[a-zA-zа-яА-Я]
+Letter,
+//[0-9]
+Digit,
+// <space>|;|.|:|,|{|}|[|]|(|)
+Delimeter,
+// -|*|+|/|%|&|||^|!|~|=|<|>|?|??|::|++|--|&&||||->|==|!=|<=|>=|+=|-=|*=|/=|%=|&=||=|^=|<<|<<=|=>|>>|>>=
+Operator,
+// "
+DoubleQuote,
+// '
+Quote,
+// /
+Slash,
+// \
+BackSlash,
+// \n|\r\n
+EndOfLine,
+NonFactor
+
 Acitons:
 -store_symbol
 -store_lexem
@@ -22,7 +42,10 @@ q0{empty_buffer}
   quote -> q1{character}/store_symbol
   / -> q6{operator}/store_symbol
   \ -> q7{comment}/store_symbol
+  eoln -> q0{empty buffer}/skip or write splitter?
+  eof -> qf{finish_state}
   other -> q0{empty buffer}/store_lexem
+ 
 
 q1{character}
   letter -> validate_state() if (valid) -> q1{character} else throw exception
@@ -76,10 +99,15 @@ q6{operator}
   operator_part{it will be defined inside the state} -> q5{delimeter}
   else -> go to state by symbol + store_lexem (delimeter)
   
-q7{comment}
+q7{SingleLineComment}
   eoln -> q0{empty_buffer}
   eof -> throw
-  else -> q7{comment}  
+  else -> q7{single_line_comment}  
+  
+q8{multi_line_comment}
+  eoln -> q0{empty_buffer}
+  eof -> throw
+  else -> q8{multi_line_comment}  
   
 qe{error}
   throw error, maybe i won't add this state
@@ -104,25 +132,4 @@ qe{error}
 -Разделитель
 
 -Строка
-
-
-Описание состояний автомата лексического анализатора:
-
-q0 {empty} - означает, что мы только открыли файл/до этого встретили разделитель, в этому состоянии buffer не содержит символов
-q1 {operator_or_comment} - означает, что buffer="/", здесь нужно считать символ и передать управление в следующее состояние в зависимости от символа
-   Если встретили char in ['/', '*'], то:
-    1. Добавляем char в buffer
-	2. Передаем управление q_comment
-   Иначе нужно:
-    1. Выписать информацию, что нашли operator(/)
-    2. Почистить buffer
-    3. Сохранить новый символ в буффер
-    4. Передать управление следующему состоянию
-q_comment:
-    1.GetChar()
-	  Если // в начале и / на конце, и char == '/', то закончить выписать токен и передать управление q0
-	  Если /* в начале и * на конце, и char == '/', то закончить выписать токен и передать управление q0
-      Иначе ничего не делать
-	  
-	  
 	  

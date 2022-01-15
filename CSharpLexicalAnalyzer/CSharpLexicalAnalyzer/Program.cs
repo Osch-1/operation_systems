@@ -1,13 +1,41 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using CSharpLexicalAnalyzer.Token;
 
-using System.Text.RegularExpressions;
-using CSharpLexicalAnalyzer;
+namespace CSharpLexicalAnalyzer;
 
-Lexer lexerAutomate = new();
-string sourceFileName = Console.ReadLine();
-string sourceFilePath = Path.Combine( Environment.CurrentDirectory, sourceFileName );
-var a = await lexerAutomate.TokenizeAsync( new StreamReader( sourceFilePath ) );
+public class Program
+{
+    private static readonly string _readFilePattern = "Enter {0} file name: ";
 
-Regex _regex = new( @"^[+-]?\d+$" );
+    public static async Task Main( string[] args )
+    {
+        Console.Write( string.Format( _readFilePattern, "input" ) );
+        string sourceFileName = Console.ReadLine();
+        Console.WriteLine();
 
-Console.WriteLine( _regex.IsMatch( "+2" ) );
+        Console.Write( string.Format( _readFilePattern, "output" ) );
+        string outputFileName = Console.ReadLine();
+        Console.WriteLine();
+
+        string sourceFilePath = Path.Combine( Environment.CurrentDirectory, $"{sourceFileName}.txt" );
+        FileStream sourceFileStream = File.Open( sourceFilePath, FileMode.Open );
+
+        string outputFilePath = Path.Combine( Directory.GetParent( Directory.GetCurrentDirectory() ).Parent.Parent.Parent.FullName, $"{outputFileName}.txt" );
+        FileStream outputFileStream = File.Open( outputFilePath, FileMode.Create );
+
+        Lexer lexerAutomate = new( sourceFileStream );
+
+        StreamWriter _output = new( outputFileStream )
+        {
+            AutoFlush = true
+        };
+        IReadOnlyList<TokenInfo> tokensInfo = lexerAutomate.TokenizeAsync();
+        var a = 0;
+        foreach ( TokenInfo tokenInfo in tokensInfo )
+        {
+            await _output.WriteLineAsync( $"{a}.{tokenInfo}" );
+            a++;
+        }
+
+        Console.WriteLine( a );
+    }
+}

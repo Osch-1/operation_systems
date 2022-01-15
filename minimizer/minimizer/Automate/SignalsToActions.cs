@@ -44,6 +44,7 @@
                 if ( !a.Equals( b ) )
                 {
                     return false;
+
                 }
             }
 
