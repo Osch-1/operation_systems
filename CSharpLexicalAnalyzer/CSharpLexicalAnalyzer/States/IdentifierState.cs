@@ -26,7 +26,8 @@ internal class IdentifierState : AbstractState
 
     protected override void OnDelimeter()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+
+        TokenInfo tokenInfo = new( ResolveTokenType( _automate.Buffer ), _automate.Position, _automate.Buffer );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
@@ -37,7 +38,7 @@ internal class IdentifierState : AbstractState
 
     protected override void OnOperator()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( ResolveTokenType( _automate.Buffer ), _automate.Position, _automate.Buffer );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
@@ -48,7 +49,7 @@ internal class IdentifierState : AbstractState
 
     protected override void OnDoubleQuote()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( ResolveTokenType( _automate.Buffer ), _automate.Position, _automate.Buffer );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
@@ -59,7 +60,7 @@ internal class IdentifierState : AbstractState
 
     protected override void OnQuote()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( ResolveTokenType( _automate.Buffer ), _automate.Position, _automate.Buffer );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
@@ -70,7 +71,7 @@ internal class IdentifierState : AbstractState
 
     protected override void OnEndOfLine()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( ResolveTokenType( _automate.Buffer ), _automate.Position, _automate.Buffer );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
@@ -85,7 +86,7 @@ internal class IdentifierState : AbstractState
 
     protected override void OnUnknown()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( ResolveTokenType( _automate.Buffer ), _automate.Position, _automate.Buffer );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
@@ -99,12 +100,103 @@ internal class IdentifierState : AbstractState
 
     protected override void OnSlash()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( ResolveTokenType( _automate.Buffer ), _automate.Position, _automate.Buffer );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
-        _automate.AppendToBuffer( _currentSymbol );        
+        _automate.AppendToBuffer( _currentSymbol );
         _automate.SetState( LexerState.CommentOrOperator );
     }
+
+    private TokenType ResolveTokenType( string identifier )
+    {
+        return IsKeyword( identifier ) ? TokenType.Keyword : TokenType.Identifier;
+    }
+
+    private bool IsKeyword( string identifier )
+    {
+        return _keywords.Contains( identifier );
+    }
+
+    private static HashSet<string> _keywords = new()
+    {
+        "abstract",
+        "as",
+        "base",
+        "bool",
+        "break",
+        "byte",
+        "case",
+        "catch",
+        "char",
+        "checked",
+        "class",
+        "const",
+        "continue",
+        "decimal",
+        "default",
+        "delegate",
+        "do",
+        "double",
+        "else",
+        "enum",
+        "event",
+        "explicit",
+        "extern",
+        "false",
+        "finally",
+        "fixed",
+        "float",
+        "for",
+        "foreach",
+        "goto",
+        "if",
+        "implicit",
+        "in",
+        "int",
+        "interface",
+        "internal",
+        "is",
+        "lock",
+        "long",
+        "namespace",
+        "new",
+        "null",
+        "object",
+        "operator",
+        "out",
+        "override",
+        "params",
+        "private",
+        "protected",
+        "public",
+        "readonly",
+        "ref",
+        "return",
+        "sbyte",
+        "sealed",
+        "short",
+        "sizeof",
+        "stackalloc",
+        "static",
+        "string",
+        "struct",
+        "switch",
+        "this",
+        "throw",
+        "true",
+        "try",
+        "typeof",
+        "uint",
+        "ulong",
+        "unchecked",
+        "unsafe",
+        "ushort",
+        "using",
+        "virtual",
+        "void",
+        "volatile",
+        "while"
+    };
 }

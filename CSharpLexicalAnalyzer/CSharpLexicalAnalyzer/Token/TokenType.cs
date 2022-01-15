@@ -10,5 +10,6 @@ public enum TokenType
     Delimeter,
     Operator,
     Comment,
-    EndOfLine
+    EndOfLine,
+    Keyword
 }
