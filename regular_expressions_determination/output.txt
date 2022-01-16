@@ -1,0 +1,7 @@
+A: xB|aC|xG|aD|x|yH
+B: yE|x|yH
+C: bG
+D: aD|x|yH
+E: yE|x|yH
+G: x|yH
+H: yH
