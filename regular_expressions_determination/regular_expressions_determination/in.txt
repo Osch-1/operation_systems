@@ -1,7 +1,2 @@
-﻿A: xB|aC|eD|xG
-B: eE
-C: bG
-D: aD|eG
-E: yE|eG
-G: xF|eH
-H: yH|eF
+﻿B: bB|aB|aH
+S: aS|aB|cS|cH

@@ -1,0 +1,6 @@
+B B(b) BH(a) 
+S SB(a) SH(c) 
+BH B(b) BH(a) 
+BS BSH(a) HS(c) B(b) 
+HS BS(a) HS(c) 
+BHS B(b) BHS(a) HS(c) 

@@ -1,0 +1,4 @@
+﻿П
+A -> aA | aS | eS
+H -> aA | aS | bS | eA
+S -> bA | bS | eB

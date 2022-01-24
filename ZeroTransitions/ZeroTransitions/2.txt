@@ -1,0 +1,4 @@
+﻿П
+A -> bS | eH
+H -> cA | bS | cA
+S -> cA

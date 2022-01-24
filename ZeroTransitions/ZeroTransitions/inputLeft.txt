@@ -1,0 +1,4 @@
+﻿Л
+S -> Sa | Ab | Ba
+A -> Aa | Bb | a
+B -> Bb | c
