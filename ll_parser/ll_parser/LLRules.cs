@@ -15,4 +15,9 @@ public class LLRules
     {
         return _ruleById[ id ];
     }
+
+    public int GetFirstRuleId()
+    {
+        return _ruleById.First().Value.Id;
+    }
 }
