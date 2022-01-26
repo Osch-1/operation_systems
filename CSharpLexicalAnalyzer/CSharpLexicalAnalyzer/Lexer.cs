@@ -10,8 +10,8 @@ public class Lexer : ILexer, ILexerAutomate
     private readonly List<TokenInfo> _tokenStorage = new();
     private readonly StreamReader _reader;
     private readonly StateFactory _stateFactory;
-    private readonly TokenTypeResolver _tokenTypeResolver;
 
+    private int _currentLineNumber = 1;
     private int _currentPos = 1;
 
     private ILexerState _currentState;
@@ -20,6 +20,8 @@ public class Lexer : ILexer, ILexerAutomate
     public string Buffer => _buffer;
 
     public int Position => _currentPos;
+
+    public int LineNumber => _currentLineNumber;
 
     public Lexer( Stream inputStream )
     {
@@ -36,7 +38,6 @@ public class Lexer : ILexer, ILexerAutomate
         _currentState = new EmptyBufferState( this, new LexemTypeResolver() );
         _reader = new StreamReader( inputStream );
         _stateFactory = new StateFactory( this, new LexemTypeResolver() );
-        _tokenTypeResolver = new TokenTypeResolver();
     }
 
     public IReadOnlyList<TokenInfo> TokenizeAsync()
@@ -90,7 +91,6 @@ public class Lexer : ILexer, ILexerAutomate
 
     private void OnEndOfInput()
     {
-        //throw new Exception( "add finish state validation" );
         SetState( LexerState.FinishState );
     }
 
@@ -197,5 +197,10 @@ public class Lexer : ILexer, ILexerAutomate
                     throw new Exception( $"Unsupported state has been provided: {stateName}" );
             }
         }
+    }
+
+    public void IncrementLinesCounter()
+    {
+        _currentLineNumber++;
     }
 }

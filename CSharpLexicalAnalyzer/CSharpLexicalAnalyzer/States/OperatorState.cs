@@ -53,7 +53,7 @@ internal class OperatorState : AbstractState
 
     protected override void OnLetter()
     {
-        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer ) );
+        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
@@ -63,7 +63,7 @@ internal class OperatorState : AbstractState
 
     protected override void OnDigit()
     {
-        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer ) );
+        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
@@ -73,7 +73,7 @@ internal class OperatorState : AbstractState
 
     protected override void OnDelimeter()
     {
-        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer ) );
+        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
@@ -86,7 +86,7 @@ internal class OperatorState : AbstractState
         _automate.AppendToBuffer( _currentSymbol );
         if ( !IsValid() )
         {
-            _automate.StoreTokenInfo( new( TokenType.Unknown, _automate.Position, _automate.Buffer ) );
+            _automate.StoreTokenInfo( new( TokenType.Unknown, _automate.Position, _automate.Buffer, _automate.LineNumber ) );
             _automate.MoveCurrentPos();
             _automate.ClearBuffer();
             _automate.SetState( LexerState.EmptyBuffer );
@@ -95,7 +95,7 @@ internal class OperatorState : AbstractState
 
     protected override void OnDoubleQuote()
     {
-        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer ) );
+        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
@@ -105,7 +105,7 @@ internal class OperatorState : AbstractState
 
     protected override void OnQuote()
     {
-        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer ) );
+        _automate.StoreTokenInfo( new( TokenType.Operator, _automate.Position, _automate.Buffer, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
@@ -115,14 +115,15 @@ internal class OperatorState : AbstractState
 
     protected override void OnEndOfLine()
     {
-        TokenInfo tokenInfo = new( TokenType.Operator, _automate.Position, _automate.Buffer );
+        base.OnEndOfLine();
+        TokenInfo tokenInfo = new( TokenType.Operator, _automate.Position, _automate.Buffer, _automate.LineNumber );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
         string val = _currentSymbol == "\n" ? "\\n" : "\\r\\n";
         _automate.AppendToBuffer( val );
-        _automate.StoreTokenInfo( new TokenInfo( TokenType.EndOfLine, _automate.Position, val ) );
+        _automate.StoreTokenInfo( new TokenInfo( TokenType.EndOfLine, _automate.Position, val, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
         _automate.SetState( LexerState.EmptyBuffer );
@@ -130,13 +131,13 @@ internal class OperatorState : AbstractState
 
     protected override void OnUnknown()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer, _automate.LineNumber );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
         _automate.AppendToBuffer( _currentSymbol );
-        _automate.StoreTokenInfo( new TokenInfo( TokenType.Unknown, _automate.Position, _currentSymbol ) );
+        _automate.StoreTokenInfo( new TokenInfo( TokenType.Unknown, _automate.Position, _currentSymbol, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
         _automate.SetState( LexerState.EmptyBuffer );
@@ -144,7 +145,7 @@ internal class OperatorState : AbstractState
 
     protected override void OnSlash()
     {
-        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( TokenType.Identifier, _automate.Position, _automate.Buffer, _automate.LineNumber );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();

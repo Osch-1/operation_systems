@@ -29,13 +29,12 @@ public class Program
             AutoFlush = true
         };
         IReadOnlyList<TokenInfo> tokensInfo = lexerAutomate.TokenizeAsync();
-        var a = 0;
+
+        int tokenNumber = 0;
         foreach ( TokenInfo tokenInfo in tokensInfo )
         {
-            await _output.WriteLineAsync( $"{a}.{tokenInfo}" );
-            a++;
+            await _output.WriteLineAsync( $"{tokenNumber}.{tokenInfo}" );
+            tokenNumber++;
         }
-
-        Console.WriteLine( a );
     }
 }

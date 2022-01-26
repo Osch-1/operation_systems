@@ -52,6 +52,7 @@ internal class MultiLineCommentState : AbstractState
 
     protected override void OnEndOfLine()
     {
+        base.OnEndOfLine();
         _automate.AppendToBuffer( _currentSymbol );
     }
 
@@ -61,7 +62,7 @@ internal class MultiLineCommentState : AbstractState
         _automate.ClearBuffer();
 
         _automate.AppendToBuffer( _currentSymbol );
-        _automate.StoreTokenInfo( new TokenInfo( TokenType.Unknown, _automate.Position, _currentSymbol ) );
+        _automate.StoreTokenInfo( new TokenInfo( TokenType.Unknown, _automate.Position, _currentSymbol, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
         _automate.SetState( LexerState.EmptyBuffer );

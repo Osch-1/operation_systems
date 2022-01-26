@@ -41,7 +41,7 @@ internal class FinishState : AbstractState
 
     protected override void OnEndOfLine()
     {
-        
+        base.OnEndOfLine();
     }
 
     protected override void OnUnknown()

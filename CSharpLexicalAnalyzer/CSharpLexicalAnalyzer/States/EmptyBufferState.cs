@@ -47,10 +47,11 @@ internal class EmptyBufferState : AbstractState
     }
 
     protected override void OnEndOfLine()
-    {        
+    {
+        base.OnEndOfLine();
         string val = _currentSymbol == "\n" ? "\\n" : "\\r\\n";
-        _automate.AppendToBuffer(_currentSymbol );
-        _automate.StoreTokenInfo( new TokenInfo( TokenType.EndOfLine, _automate.Position, val ) );
+        _automate.AppendToBuffer( _currentSymbol );
+        _automate.StoreTokenInfo( new TokenInfo( TokenType.EndOfLine, _automate.Position, val, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
     }

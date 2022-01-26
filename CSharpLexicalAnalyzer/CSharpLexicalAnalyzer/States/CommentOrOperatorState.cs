@@ -46,7 +46,7 @@ internal class CommentOrOperatorState : AbstractState
             return;
         }
 
-        TokenInfo tokenInfo = new( TokenType.Operator, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( TokenType.Operator, _automate.Position, _automate.Buffer, _automate.LineNumber );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
@@ -75,12 +75,13 @@ internal class CommentOrOperatorState : AbstractState
 
     protected override void OnEndOfLine()
     {
+        base.OnEndOfLine();
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
 
         string val = _currentSymbol == "\n" ? "\\n" : "\\r\\n";
         _automate.AppendToBuffer( val );
-        _automate.StoreTokenInfo( new TokenInfo( TokenType.EndOfLine, _automate.Position, val ) );
+        _automate.StoreTokenInfo( new TokenInfo( TokenType.EndOfLine, _automate.Position, val, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
         _automate.SetState( LexerState.EmptyBuffer );
@@ -92,7 +93,7 @@ internal class CommentOrOperatorState : AbstractState
         _automate.ClearBuffer();
 
         _automate.AppendToBuffer( _currentSymbol );
-        _automate.StoreTokenInfo( new TokenInfo( TokenType.Unknown, _automate.Position, _currentSymbol ) );
+        _automate.StoreTokenInfo( new TokenInfo( TokenType.Unknown, _automate.Position, _currentSymbol, _automate.LineNumber ) );
         _automate.MoveCurrentPos();
         _automate.ClearBuffer();
         _automate.SetState( LexerState.EmptyBuffer );

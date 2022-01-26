@@ -62,8 +62,11 @@ internal abstract class AbstractState : ILexerState
     protected abstract void OnDelimeter();
     protected abstract void OnOperator();
     protected abstract void OnDoubleQuote();
-    protected abstract void OnQuote();    
-    protected abstract void OnEndOfLine();
+    protected abstract void OnQuote();
+    protected virtual void OnEndOfLine()
+    {
+        _automate.IncrementLinesCounter();
+    }
     protected abstract void OnUnknown();
     protected abstract void OnSlash();
 }

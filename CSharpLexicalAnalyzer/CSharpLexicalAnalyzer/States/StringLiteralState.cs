@@ -37,7 +37,7 @@ internal class StringLiteralState : AbstractState
             throw new Exception( $"Automate appeared to be in {nameof( CharacterState )} state when first symbol is not '" );
         }
 
-        TokenInfo tokenInfo = new( TokenType.StringLiteral, _automate.Position, _automate.Buffer );
+        TokenInfo tokenInfo = new( TokenType.StringLiteral, _automate.Position, _automate.Buffer, _automate.LineNumber );
 
         _automate.AppendToBuffer( _currentSymbol );
         _automate.StoreTokenInfo( tokenInfo );
@@ -53,12 +53,13 @@ internal class StringLiteralState : AbstractState
 
     protected override void OnEndOfLine()
     {
+        base.OnEndOfLine();
         if ( _automate.Buffer[ 0 ] != '"' )
         {
             throw new Exception( $"Automate appeared to be in {nameof( CharacterState )} state when first symbol is not '" );
         }
 
-        TokenInfo tokenInfo = new( TokenType.StringLiteral, _automate.Position, _automate.Buffer, "End of line on unclosed string literal" );
+        TokenInfo tokenInfo = new( TokenType.StringLiteral, _automate.Position, _automate.Buffer, _automate.LineNumber, "End of line on unclosed string literal" );
         _automate.AppendToBuffer( _currentSymbol );
         _automate.StoreTokenInfo( tokenInfo );
         _automate.MoveCurrentPos();
